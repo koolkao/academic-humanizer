@@ -1,11 +1,40 @@
 # academic-humanizer (fidelity-first fork)
 
-A fidelity-first fork of [AIScientists-Dev/academic-humanizer](https://github.com/AIScientists-Dev/academic-humanizer)
-(upstream commit `94b88b23703bed7df507acae7d6d5876209a0cdf`, v0.3.3, MIT).
+An agent skill that edits AI-assisted papers and grant proposals so they read like the author wrote
+them. It removes generic AI phrasing ("In recent years…", "paves the way", "delve", clause-stacked
+sentences) without changing what the science says. Numbers, citations, hedges, and claims stay
+exactly as written; anything substantive is proposed to you, not applied.
 
-It is an editing pass for AI-assisted papers and grant proposals. It removes generic AI phrasing
-("In recent years…", "paves the way", "delve", clause-stacked sentences) and matches the author's voice.
-Factual and scientific fidelity outranks every style rule.
+Fork of [AIScientists-Dev/academic-humanizer](https://github.com/AIScientists-Dev/academic-humanizer)
+(v0.3.3, MIT).
+
+## Demo (2:19)
+
+[![Demo: the original skill writes a new hypothesis into a grant; the fork keeps the author's sentence and proposes the rewrite](docs/media/demo-thumbnail.jpg)](https://github.com/koolkao/academic-humanizer/releases/download/v0.2.0/academic-humanizer-demo.mp4)
+
+Click the image to watch. Every example in the video is real output from the test runs in `tests/`.
+
+## Use it
+
+Paste this repo's URL into your agent (Claude Code, Codex, Cursor, or similar) and ask it to use the
+skill:
+
+```
+Use the skill at https://github.com/koolkao/academic-humanizer to edit main.tex.
+Target venue: a pediatrics journal.
+```
+
+That's it. The agent reads `SKILL.md` and follows it. Some optional things you can add:
+
+- "Match my voice from prior_paper.pdf"
+- "Here are numbers you may use: …" (the skill only adds numbers that are in your manuscript or that
+  you supply)
+- "Just audit it, don't change anything", or "Compare draft-v1.tex and draft-v2.tex"
+
+**What you get:** your original file is left untouched. Next to it, the skill writes:
+- `main.revised.tex`: the edited copy;
+- `main.changes.md`: a report covering what changed, what needs your input (e.g. an inconsistent
+  sample size), suggested changes it did *not* apply, and the result of a numbers-and-citations check.
 
 ## What it does differently from upstream
 
@@ -35,33 +64,18 @@ Factual and scientific fidelity outranks every style rule.
 - **Contextual style rules.** Em-dashes, "demonstrate", and similar items are preferences, not bans.
   Quotations, theorems, and venue style win.
 
-## Install (project-scoped, pinned)
+## Keep a copy (optional)
 
-Copy a reviewed version into the project that needs it instead of cloning a moving branch into a
-user-wide directory:
+To use the skill without pasting the URL each time, or to pin a version you've reviewed, copy it
+into your project. Claude Code picks it up as `/academic-humanizer`:
 
 ```bash
-mkdir -p .claude/skills
-cp -R /path/to/this/repo .claude/skills/academic-humanizer
+git clone https://github.com/koolkao/academic-humanizer .claude/skills/academic-humanizer
 ```
 
-The skill declares `Read, Write, Edit, Grep, Glob, AskUserQuestion`. It does not pre-approve shell
-access, so the host asks before running the preservation check. Tool declarations are not a sandbox;
-enforce path and network restrictions in the host environment for confidential manuscripts.
-
-Review upstream diffs before adopting updates. There is no automatic sync.
-
-## Use
-
-```
-/academic-humanizer
-Edit main.tex. Target venue: a pediatrics journal. Match my voice from prior_paper.pdf.
-Evidence block (optional): <numbers or results the edit may use>
-```
-
-Output: `main.revised.tex`, plus `main.changes.md` with these sections: files, unresolved issues,
-claim-strength changes and evidence-block additions, substantive proposals, prose edits, preservation
-check.
+For confidential manuscripts, prefer a reviewed copy over a live URL, and restrict file and network
+access in your agent's settings. The skill itself asks for no network access, but skill instructions
+are not a sandbox.
 
 ## Tested
 
