@@ -1,92 +1,185 @@
-# Before / after (academic register)
+# Before / after (fidelity-first)
 
-**Before (AI tells + over-claim):**
-> In recent years, graph representation learning has attracted increasing attention. In this paper, we
-> propose a novel method and demonstrate through extensive experiments that it significantly outperforms
-> existing approaches, paving the way for a new paradigm. To the best of our knowledge, this is the first
-> work to delve into this crucial problem.
-
-**After (academic-humanized):**
-> Existing graph methods for imbalanced node classification reweight the loss but ignore label noise. We
-> add a noise-aware reweighting term and evaluate it on three citation benchmarks, where it improves
-> minority-class F1 by 3-6 points over focal loss while leaving majority-class accuracy within 1 point.
-
-What changed: removed the formulaic opener, "novel", "extensive", "significantly" (unquantified),
-"paving the way", and "to the best of our knowledge"; downgraded "demonstrate" to "evaluate"; attached
-a range and the comparator; kept the precise factual claims.
+Every "after" below uses only material in its "before" or in an evidence block shown with it. Where the
+honest result is "leave it and flag it", the example says so. All passages are synthetic.
 
 ---
 
-## Funding-proposal mode: an NIH Specific Aims opening (Layer 6)
+## 1. Hype and over-claiming around real statistics
 
-Proposals are scored from the first page, and the register differs from a paper: vision and
-feasibility are the product, so ambition is *kept* and matched to evidence rather than trimmed. This
-constructed example shows the opening move of an NIH Specific Aims page.
+**Before:**
+> In recent years, adolescent sleep has attracted increasing attention as a pivotal public-health
+> concern. Our findings demonstrate that evening screen time causes poor sleep (r = 0.21, 95% CI 0.13 to
+> 0.29), paving the way for a new paradigm in digital-health policy.
 
-**Before (vague importance, method-as-aim, dominoed, no feasibility):**
+**After:**
+> Evening screen time was associated with worse sleep quality (r = 0.21, 95% CI 0.13 to 0.29).
+
+**Report:**
+- *Prose edits:* removed the formulaic opener and "paving the way for a new paradigm".
+- *Claim-strength change (author must confirm):* "demonstrate that … causes" → "was associated with".
+  The manuscript reports a correlation, which does not support a causal verb.
+- *Substantive proposal:* the opener's point (why adolescent sleep matters) could be kept as a sentence
+  with a citation if the author has one. None was supplied, so nothing was added.
+
+The statistic, CI, and direction of the effect are unchanged.
+
+---
+
+## 2. A citation cluster
+
+**Before:**
+> Moreover, it is worth noting that many prior studies have linked evening device use to delayed sleep
+> onset [3, 7, 9, 12, 15].
+
+**After:**
+> Prior studies have linked evening device use to delayed sleep onset [3, 7, 9, 12, 15].
+
+**Report:**
+- *Prose edits:* removed "Moreover" and "it is worth noting that"; dropped "many" as an empty
+  intensifier. The five citations make the point.
+- *Substantive proposal:* consider saying what the strongest of these studies found (design, size).
+  Which ones those are is the author's call.
+
+All five keys stay, attached to the same claim. **Wrong fix:** "The closest prior study is [7]" (drops
+four citations and invents a ranking).
+
+---
+
+## 3. An uncertain mechanism
+
+**Before:**
+> It is worth noting that, importantly, the mechanisms underlying this relationship remain unclear, as
+> light exposure, displaced sleep time, and arousal have each been proposed, but none has been isolated
+> experimentally [4].
+
+**After:**
+> The mechanism remains unclear. Light exposure, displaced sleep time, and arousal have each been
+> proposed, but none has been isolated experimentally [4].
+
+**Wrong fix:** "Blue-light exposure suppresses melatonin, delaying sleep onset [4]." This picks one
+mechanism and turns an open question into a finding.
+
+---
+
+## 4. A null result
+
+**Before:**
+> The intervention did not significantly reduce PSQI scores relative to control (mean difference −0.6,
+> 95% CI −1.3 to 0.1; p = 0.08).
+
+**After:** unchanged. The sentence is already precise.
+
+**Wrong fixes:**
+- "The intervention trended toward reducing PSQI scores." (reframes a null result as a partial success)
+- "The intervention had no effect on sleep." (turns absence of evidence into evidence of absence; the CI
+  includes a 1.3-point improvement)
+
+---
+
+## 5. An unsupported claim with no numbers anywhere in the manuscript
+
+**Before:**
+> Our adaptive reminder system performed much better than the standard schedule and was really robust.
+
+**After:**
+> Our adaptive reminder system performed better than the standard schedule.
+
+**Report:**
+- *Prose edits:* removed "much" (casual intensifier).
+- *Claim-strength change (author must confirm):* dropped "and was really robust". No robustness
+  analysis appears in the manuscript.
+- *Unresolved issue:* nothing in the manuscript supports this claim. There is no outcome, estimate,
+  CI, test, or table, and neither reminder condition appears in Methods. `[AUTHOR: evidence needed for
+  this claim]`, or delete the sentence.
+
+Cutting "really robust" removes an unsupported claim, which is allowed: it weakens toward the
+evidence. **Wrong fix:** "improved adherence by 18% (95% CI 9–27%; Table 3)". Every number and the
+table pointer there are invented, and "make it concrete" does not change that.
+
+---
+
+## 6. The same claim when an evidence block is supplied
+
+**User-supplied evidence block:**
+> Adaptive reminders: 7-day adherence 71% (n = 58). Standard schedule: 54% (n = 60). Difference 17
+> points, 95% CI 0.4 to 33.6, chi-square p = 0.046.
+
+**After:**
+> Seven-day adherence was 71% with adaptive reminders (n = 58) and 54% with the standard schedule
+> (n = 60), a difference of 17 percentage points (95% CI 0.4 to 33.6; p = 0.046).
+
+**Report:**
+- *Evidence-block additions (author must confirm):* every number comes from the supplied block, which
+  the report quotes so the author can confirm it belongs in the manuscript. "Robust" was dropped
+  because the block contains no robustness analysis.
+
+---
+
+## 7. A limitation and a sample-size inconsistency
+
+**Before:**
+> Of the 240 participants, 130 identified as female and 120 identified as male. Because the sample was
+> drawn from four schools in one region, and because screen time was self-reported, these results may
+> not generalize to other populations.
+
+**After:** the first sentence is unchanged. The second becomes:
+> Because the sample came from four schools in one region and screen time was self-reported, these
+> results may not generalize to other populations.
+
+**Report:**
+- *Unresolved issue:* 130 + 120 = 250, but N = 240. Neither number was changed. Correct the counts or
+  report the remaining category.
+
+"May not generalize" stays. **Wrong fix:** quietly changing 130 to 120.
+
+---
+
+## 8. A legitimate em-dash and a legitimate "demonstrate"
+
+**Before:**
+> One participant said: "I'd put the phone down — then pick it right back up." We prove that the
+> adherence estimator is unbiased under missingness completely at random (Theorem 1).
+
+**After:** unchanged. The em-dash is inside a verbatim quotation, and "prove" describes a formal
+theorem, where it is the correct verb.
+
+---
+
+## 9. Funding-proposal mode: an NIH Specific Aims opening
+
+**Before:**
 > Early detection of sepsis is a very important and timely problem with many applications. In this
 > proposal we will explore whether machine learning might possibly help. Aim 1: apply our model to ICU
-> data. Aim 2: extend Aim 1 to multi-site data. Aim 3: if Aims 1–2 succeed, run a pilot. This work will
-> be groundbreaking and have a large impact on the field.
+> data. Aim 2: extend Aim 1 to multi-site data. This work will be groundbreaking.
 
-**After (gap + central commitment + parallel, outcome-framed aims + payoff + feasibility):**
-> Sepsis is treatable when caught early, yet bedside scores fire too late and too often, so clinicians
-> cannot tell a true alarm from noise. **The objective of this application is** to deliver an early-warning
-> model whose alerts are calibrated and transferable enough to act on. Our central hypothesis, supported by
-> our preliminary single-site results (Fig. 1), is that fusing continuous vital-sign trends with routine
-> labs detects deterioration hours earlier without raising the false-alarm rate.
-> **Aim 1: Establish** the detection-vs-false-alarm limit on retrospective ICU data and a model that
-> approaches it, with calibration quantified by a proper scoring rule.
-> **Aim 2: Determine** whether adding routine labs to vital-sign trends improves early detection, and for
-> which patient subgroups it helps or hurts.
-> **Aim 3: Quantify** how alert calibration transfers across sites, using a prospectively held-out hospital.
-> The aims are independent: each yields a usable result on its own. **Impact:** a calibrated, transferable
-> early-warning tool, evaluated with two partner hospitals (letters enclosed).
+**User-supplied record:**
+> Preliminary: single-site retrospective model (2 ICUs, 4,100 admissions) flagged sepsis a median 3.1 h
+> before the qSOFA alert at a matched false-alarm rate (Fig. 1). Partner: one additional hospital has
+> agreed to share data (letter attached).
 
-What changed: replaced "very important and timely … many applications" with the specific clinical gap and
-its cost; turned the hedged central claim into a falsifiable hypothesis tied to preliminary data; rewrote
-method-as-aims into outcome-framed aims and removed the Aim-3-depends-on-1-and-2 domino (now parallel);
-named a concrete rigor anchor (a proper scoring rule for calibration); replaced "groundbreaking … large
-impact" with a concrete payoff and feasibility evidence (preliminary figure, partner letters). The
-ambition stayed, and it is now backed. *(This example is generic; in real use, cite only the PI's own
-record, and never invent preliminary data, funding, or letters.)*
+**After (prose edits applied):**
+> Sepsis is treatable when caught early. In our single-site preliminary study (2 ICUs, 4,100
+> admissions), a retrospective model flagged sepsis a median 3.1 hours before the qSOFA alert at a
+> matched false-alarm rate (Fig. 1). In this proposal we will explore whether machine learning might
+> possibly help.
+> Aim 1: apply our model to ICU data.
+> Aim 2: extend Aim 1 to multi-site data.
 
----
+**Report:**
+- *Prose edits:* removed "very important and timely … many applications" and "groundbreaking".
+- *Evidence-block additions (author must confirm):* the preliminary-result sentence. Every figure in it
+  is quoted from the supplied record.
+- *Substantive proposals (not applied):*
+  - The objective is over-hedged for an Aims page. A suggested rewrite: "This proposal will test
+    whether that lead time holds across hospitals." Removing "might possibly" changes the commitment,
+    so the author decides.
+  - Aims are method-shaped. A suggested rewrite: "Aim 1: Determine whether the lead time holds at
+    matched false-alarm rates on retrospective data from the partner hospital."
+  - Aim 2 depends on Aim 1. Consider making the aims independent, or state a fallback.
+  - The partner letter could be cited on this page as feasibility evidence.
+- *Unresolved issue:* there is no central hypothesis. The author needs to state one; this edit does not
+  write it.
 
-## Funding-proposal mode: an NSF CAREER Project Summary (Layer 6)
-
-Here the **"after" is adapted from a real, funded NSF CAREER Project Summary** (used with permission);
-the "before" is a synthetic AI-generated draft of the same idea. It shows the proposal register at work:
-the long-term vision and the three-layer ambition are *kept* (they belong in a proposal), while the AI
-tells are stripped and the gap and payoff are made concrete.
-
-**Before (AI-generated; vision drowned in tells):**
-> In recent years, artificial intelligence has attracted increasing attention and achieved remarkable
-> success across a wide range of domains. However, despite these advances, continual learning remains a
-> crucial and pivotal challenge of paramount importance. In this proposal, we propose a novel and
-> comprehensive framework that leverages cutting-edge techniques to delve into the intricate challenges of
-> continual learning, paving the way for a transformative new paradigm. To the best of our knowledge, this
-> is the first framework to seamlessly unify these aspects, underscoring its potential to revolutionize the
-> field. Through extensive experiments, we will demonstrate that our groundbreaking approach significantly
-> outperforms existing methods. Our educational plan will also foster the next generation of researchers.
-
-**After (adapted from a funded NSF CAREER Project Summary, Overview):**
-> As data and learning environments expand, the value of AI depends on its ability to scale and adapt.
-> Continual learning addresses this: a learner that maintains performance on old tasks while integrating
-> new information, adapts to new environments by recollecting past knowledge, and actively solicits side
-> information to learn faster and more accurately. Existing continual-learning methods, though promising,
-> are largely empirical, with unclear principles underpinning their behavior, which limits both their
-> reliability and further progress. This CAREER proposal builds a principled framework that unifies these
-> traits through coupled theory and algorithm design, in three layers: evolving memory for capability
-> growth, soft supervision for accelerated learning, and cross-domain knowledge for accuracy. The work
-> will advance the theory of continual learning, enrich its algorithms, and release scalable packages,
-> demonstrated on autonomous driving and cellular performance management. An integrated education plan
-> trains the next generation of data scientists through new STEM programs and an open-source platform.
-
-What changed: cut the formulaic opener and the AI vocabulary (delve, intricate, seamless, leverage,
-cutting-edge); removed the over-claims (novel, groundbreaking, revolutionize, "to the best of our
-knowledge", "significantly outperforms" with no evidence); replaced "paramount importance" with the
-concrete gap (methods are empirical, principles unclear) and its cost (reliability, progress). What was
-**preserved** is exactly what a paper layer would over-trim but a proposal needs: the long-term vision,
-the three-layer framework, the named demonstration domains, and the integrated education plan. In
-proposal mode, ambition stays; it is just made specific and credible.
+The aims and objective are left as written because rewording them changes what the proposal promises. Nothing
+here beyond the supplied record is added: no extra partners, figures, prior awards, or letters.

@@ -1,121 +1,103 @@
-<div align="center">
+# academic-humanizer (fidelity-first fork)
 
-<img src="assets/banner.svg" alt="Academic Humanizer: personalized editing for AI-assisted academic drafts, keeping your voice and every claim, number, and citation intact" width="860">
+A fidelity-first fork of [AIScientists-Dev/academic-humanizer](https://github.com/AIScientists-Dev/academic-humanizer)
+(upstream commit `94b88b23703bed7df507acae7d6d5876209a0cdf`, v0.3.3, MIT).
 
-[![license](https://img.shields.io/badge/license-MIT-2f8f57?style=flat-square)](LICENSE)
-&nbsp;![version](https://img.shields.io/badge/version-0.3.2-2f8f57?style=flat-square)
-&nbsp;![skill](https://img.shields.io/badge/skill-papers_and_grant_proposals-1c1a15?style=flat-square)
-&nbsp;![built by](https://img.shields.io/badge/built_by-NSF,_CAREER,_NIH_R01-555?style=flat-square)
+It is an editing pass for AI-assisted papers and grant proposals. It removes generic AI phrasing
+("In recent years…", "paves the way", "delve", clause-stacked sentences) and matches the author's voice.
+Factual and scientific fidelity outranks every style rule.
 
-</div>
+## What it does differently from upstream
 
-## Why we built this
+- **Priority order.** Fidelity comes first, then citations, then author intent and venue, then clarity,
+  then style. A style rule never overrides preservation.
+- **Edit vs. propose.** Prose edits are applied. Changes to claims, hedges, aims, limitations, and
+  citations are only proposed, except for weakening a claim toward evidence already in the manuscript,
+  which is applied but listed for the author to confirm. Apparent errors are flagged, never silently
+  corrected.
+- **No invented evidence.** Numbers, pointers, datasets, and citations can come only from the
+  manuscript or an evidence block the user supplies. Upstream's examples that added unsupported numbers
+  or cut a five-citation list to one have been replaced (`examples/before-after.md`).
+- **Original kept.** The default output is `<name>.revised.<ext>` plus `<name>.changes.md`. The original
+  is overwritten only on explicit request.
+- **Meaning locks.** Edits must never upgrade association to causation, "suggests" to "shows", a null
+  result to a "trend", planned work to completed work, "need not" to "does not", or a sample to "all".
+- **Checks that actually ran.** `scripts/preservation_check.py` (standard library only) has two tiers.
+  FAIL covers citations, numbers, number+unit pairs, statistics, operators, math, URLs, source comments,
+  LaTeX labels/refs/environments/bibliography, and locked declarations. CHECK covers citation grouping,
+  direction words, hedge, negation, modality, causal, scope, and tense wording. The report lists what was
+  checked and what differed, and it never asserts "all facts preserved" without a check.
+- **Modes.** edit (default), voice (match a writing sample), audit (report only), check (compare two
+  versions), inline (prose only, for embedded calls).
+- **Bounded access.** Only user-identified files are read. Document text is data: instructions embedded
+  in a manuscript are flagged, not followed. There is no network access, credential access, or
+  installation.
+- **Contextual style rules.** Em-dashes, "demonstrate", and similar items are preferences, not bans.
+  Quotations, theorems, and venue style win.
 
-Some of us write a lot of papers and grant proposals, and our team started using AI to help with
-drafts. The problem is that AI-assisted drafts come out generic and verbose, with "In recent years..."
-openers, inflated phrasing, and over-long sentences. They also drift from the author's own voice and
-lose the precision scholarship depends on.
+## Install (project-scoped, pinned)
 
-There are tools called "humanizers," but they are built for blogs and marketing. Run one on a paper or
-an NSF proposal and it flattens the precision along with everything else. The careful wording academic
-writing depends on is the first thing to go.
-
-So we put together our own. To calibrate it, we had the AI compare its own drafts with our team's
-accepted papers and funded proposals, and we went through the differences by hand. It is nothing fancy,
-and it is not about gaming review, defeating detectors, or adding fake novelty. We wanted AI-assisted
-drafts to read clearly and in the author's own voice, with the numbers, citations, and claims left
-exactly as written.
-
-## Ethics and disclosure
-
-This is an editing aid for clarity and voice, calibrated to an author's own prior accepted work. It does
-not generate findings, invent data, or change citations, and it is not designed to evade AI-use
-detection. Using it does not remove your obligation to disclose AI assistance: always follow the
-disclosure policy of the venue you submit to.
-
-## See it work
-
-> [!CAUTION]
-> **Before** (a generic AI draft):
->
-> In recent years, continual learning has attracted increasing attention and achieved remarkable
-> success. However, existing methods still face crucial challenges. In this proposal, we propose a novel
-> framework that leverages cutting-edge techniques to delve into these intricate problems, paving the way
-> for a transformative paradigm that will revolutionize the field.
-
-> [!TIP]
-> **After** (clear, in the author's voice, with claims tied to evidence):
->
-> Continual learning matters, but today's methods stay empirical and their principles are unclear. That
-> limits reliability and progress. This proposal builds a principled framework on three fronts:
-> adaptation, soft supervision, and cross-domain knowledge. We demonstrate it on autonomous driving and
-> network management.
-
-**More before/after passes** are in [`examples/before-after.md`](examples/before-after.md): a general
-example, an NIH Specific Aims page, and a funded NSF CAREER summary.
-
----
-
-## What it does
-
-- **Sharpens clarity and voice:** trims generic AI phrasing ("paves the way", "extensive experiments", "to the best of our knowledge", "In recent years...", delve/underscore/tapestry, rule-of-three, very long sentences, em-dashes) and brings the draft closer to the author's own style.
-- **Keeps claims tied to evidence:** no verb stronger than the data (`prove` → `show empirically`), and
-  vague magnitudes become attributed ranges.
-- **Leaves real scholarship alone:** evidence-tied hedging, passive voice where it fits, `we`,
-  definitions, symbols, and every citation. It doesn't change a number or a reference.
-- **Has a separate mode for grant proposals (NSF, NIH):** it keeps the vision a paper would trim, and
-  spends most of the effort on the first pages, since that's what reviewers score.
-
-## Install
+Copy a reviewed version into the project that needs it instead of cloning a moving branch into a
+user-wide directory:
 
 ```bash
-git clone https://github.com/AIScientists-Dev/academic-humanizer ~/.claude/skills/academic-humanizer
+mkdir -p .claude/skills
+cp -R /path/to/this/repo .claude/skills/academic-humanizer
 ```
 
-It is a plain `SKILL.md` plus examples, so it also runs as a skill or system prompt for **Codex** and
-**MorphMind**. Point your agent at `SKILL.md`.
+The skill declares `Read, Write, Edit, Grep, Glob, AskUserQuestion`. It does not pre-approve shell
+access, so the host asks before running the preservation check. Tool declarations are not a sandbox;
+enforce path and network restrictions in the host environment for confidential manuscripts.
+
+Review upstream diffs before adopting updates. There is no automatic sync.
 
 ## Use
 
 ```
 /academic-humanizer
-[paste a section, or point at main.tex]
-# optionally: "match my voice from prior_paper.pdf; target venue: ICLR"
+Edit main.tex. Target venue: a pediatrics journal. Match my voice from prior_paper.pdf.
+Evidence block (optional): <numbers or results the edit may use>
 ```
 
-## Make it yours
+Output: `main.revised.tex`, plus `main.changes.md` with these sections: files, unresolved issues,
+claim-strength changes and evidence-block additions, substantive proposals, prose edits, preservation
+check.
 
-The rules here reflect one group's voice. Fork the repo and adapt them to your own: point it at a few of
-your past papers, keep the checks that fit your field, and adjust the rest. It is meant to be
-personalized, not a one-size-fits-all filter.
+## Tested
 
-## How it works
+10 synthetic cases cover these trap types, with pass/fail rubrics in `tests/cases.md`:
+- an RCT, a LaTeX ML paper, NIH Aims with an evidence block, qualitative sociology, a clinical
+  abstract, a rebuttal letter, voice matching, Chicago notes;
+- a detector-evasion request and an in-place request.
 
-Six layers: general AI-tell catalog → academic-specific tells → preserve scholarly conventions →
-claim↔evidence matching → voice/venue calibration → funding-proposal mode (NSF/NIH structure,
-first-page primacy, claim↔feasibility). The audit→rewrite loop is defined in [`SKILL.md`](SKILL.md).
+In 0.2.0 the fork passed 20/20 runs. Upstream v0.3.3 passed 0/7 on the same prompts (2/7 on content
+alone). Upstream's failures:
+- writing new hypotheses and claims directly into the manuscript;
+- inventing plan details;
+- overwriting originals;
+- asserting checks it never ran.
 
-## References
+Details, caveats, and known weak spots are in `CHANGELOG.md`. Method is in `docs/methods.md`.
 
-Layer 6 distills the *stable* structure of NSF and NIH proposals. For current, binding requirements
-(page limits, formatting, deadlines), consult the source:
+```bash
+python3 -m unittest discover -s tests -p 'test_*.py'   # checker unit tests
+bash tests/prepare_run.sh C03 /tmp/ah/C03-r1           # set up a behavioral run (see tests/README.md)
+```
 
-- NSF: [Proposal & Award Policies & Procedures Guide (PAPPG)](https://www.nsf.gov/policies/pappg)
-- NSF: [CAREER program](https://new.nsf.gov/funding/opportunities/career-faculty-early-career-development-program)
-- NIH: [Write Your Application](https://grants.nih.gov/grants/how-to-apply-application-guide/format-and-write/write-your-application.htm) (Specific Aims, Significance, Innovation, Approach)
+## Limitations
 
-## Acknowledgments
+- The token check is heuristic. It can miss unusual citation formats and flag harmless reformatting.
+  A clean result does not prove meaning was preserved, so the semantic review in the report still
+  matters.
+- This is a prose aid, not a detector-evasion tool, and it makes no claim about AI-detector outcomes.
+  Follow your venue's AI-use disclosure policy.
+- Validation is small: one model family, 1–2 runs per case, synthetic fixtures. See *Threats to
+  validity* in `docs/methods.md`. Re-run the cases in your environment before using it with
+  confidential manuscripts.
 
-- **[blader/humanizer](https://github.com/blader/humanizer)** (MIT). *Focus:* removing general
-  AI-writing patterns for blog, casual, and encyclopedic text. This skill reuses its general AI-tell
-  catalog (Layer 1) and extends it for academic prose.
-- **[koaeraser/ARMS](https://github.com/koaeraser/ARMS)**. *Focus:* an autonomous pipeline for
-  statistics/methodology research papers (idea → validated, revised manuscript). A complementary,
-  broader-scope project that informed the claim-evidence and numerical-precision emphasis here.
+## Credits
 
-This skill is the narrower piece: a single-purpose **editing pass** that sharpens clarity and matches
-claims to evidence while preserving the author's scholarly voice.
-
-## License
-
-MIT.
+The style catalog, proposal-mode structure, and original concept are from
+[AIScientists-Dev/academic-humanizer](https://github.com/AIScientists-Dev/academic-humanizer). That
+project builds on [blader/humanizer](https://github.com/blader/humanizer) (MIT) and
+[koaeraser/ARMS](https://github.com/koaeraser/ARMS). MIT license; see `LICENSE`.

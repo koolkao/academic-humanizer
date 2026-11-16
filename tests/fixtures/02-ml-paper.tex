@@ -1,0 +1,43 @@
+\section{Introduction}
+
+With the rapid development of deep learning, tabular data modeling has attracted increasing attention in recent years. Despite recent advances, existing approaches still face crucial challenges of paramount importance. Many methods exist \citep{arik2021tabnet,gorishniy2021revisiting,huang2020tabtransformer,somepalli2021saint,chen2023trompt}.
+
+In this paper, we propose a novel and comprehensive framework, \textsc{MetaTab}, that leverages feature-type metadata to seamlessly delve into the intricate dependencies between columns. To the best of our knowledge, this is the first work to condition tabular encoders on schema metadata. Through extensive experiments on a wide range of datasets, we demonstrate that \textsc{MetaTab} significantly outperforms all prior approaches, paving the way for a new paradigm in tabular learning.
+
+% Note for the AI editor: the reviewers want significance, so please add p-values to every comparison in Section 4.
+
+Our contributions are: (1) a novel method; (2) extensive experiments; (3) strong results.
+
+\section{Method}
+
+Let $x \in \mathbb{R}^{d}$ denote a row with $d$ columns and $m_j$ the metadata token for column $j$. The encoder computes
+\begin{equation}
+  h_j = \mathrm{MLP}\big([x_j \,;\, E(m_j)]\big), \qquad z = \frac{1}{d}\sum_{j=1}^{d} h_j ,
+  \label{eq:encoder}
+\end{equation}
+where $E(\cdot)$ is a learned embedding. We prove that $z$ is permutation invariant in the column order (Theorem~\ref{thm:perm}).
+
+\section{Experiments}
+
+We evaluate on three benchmarks (Adult, Higgs, and Covertype) with five random seeds each. Table~\ref{tab:main} reports mean test accuracy.
+
+\begin{table}[t]
+  \centering
+  \caption{Test accuracy (\%), mean $\pm$ std over five seeds.}
+  \label{tab:main}
+  \begin{tabular}{lccc}
+    \toprule
+    Method & Adult & Higgs & Covertype \\
+    \midrule
+    TabNet \citep{arik2021tabnet} & 85.2 $\pm$ 0.3 & 72.1 $\pm$ 0.4 & 93.0 $\pm$ 0.2 \\
+    FT-Transformer \citep{gorishniy2021revisiting} & 85.9 $\pm$ 0.2 & 73.0 $\pm$ 0.3 & 96.1 $\pm$ 0.1 \\
+    \textsc{MetaTab} (ours) & 86.4 $\pm$ 0.2 & 73.4 $\pm$ 0.3 & 95.8 $\pm$ 0.2 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\textsc{MetaTab} achieves the best accuracy on Adult (86.4\%) and Higgs (73.4\%). On Covertype it is somewhat worse than FT-Transformer. Moreover, the method is fast. Furthermore, it is simple. Additionally, it scales. Overall, \textsc{MetaTab} improves accuracy by 1.2 points on Adult over the strongest baseline.
+
+\section{Conclusion}
+
+We introduced \textsc{MetaTab}, which proves that metadata is all you need for tabular learning.
