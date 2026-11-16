@@ -8,6 +8,12 @@ exactly as written; anything substantive is proposed to you, not applied.
 Fork of [AIScientists-Dev/academic-humanizer](https://github.com/AIScientists-Dev/academic-humanizer)
 (v0.3.3, MIT).
 
+## Demo (2:19)
+
+[![Demo: the original skill writes a new hypothesis into a grant; the fork keeps the author's sentence and proposes the rewrite](docs/media/demo-thumbnail.jpg)](https://github.com/koolkao/academic-humanizer/releases/download/v0.2.0/academic-humanizer-demo.mp4)
+
+Click the image to watch. Every example in the video is real output from the test runs in `tests/`.
+
 ## Use it
 
 Paste this repo's URL into your agent (Claude Code, Codex, Cursor, or similar) and ask it to use the
