@@ -10,9 +10,11 @@ Fork of [AIScientists-Dev/academic-humanizer](https://github.com/AIScientists-De
 
 ## Demo (2:19)
 
-[![Demo: the original skill writes a new hypothesis into a grant; the fork keeps the author's sentence and proposes the rewrite](docs/media/demo-thumbnail.jpg)](https://github.com/koolkao/academic-humanizer/releases/download/v0.2.0/academic-humanizer-demo.mp4)
+https://github.com/user-attachments/assets/eebcb423-3e0b-4d3f-9f3f-cd5db96e756a
 
-Click the image to watch. Every example in the video is real output from the test runs in `tests/`.
+Every example in the video is real output from the test runs in `tests/`. If the player doesn't load,
+[download the video](https://github.com/koolkao/academic-humanizer/releases/download/v0.2.0/academic-humanizer-demo.mp4)
+from the v0.2.0 release.
 
 ## Use it
 
